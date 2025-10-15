@@ -6,8 +6,31 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@tailwindcss/vite": "^4.1.14",
+        "autoprefixer": "^10.4.21",
         "axios": "^1.6.4",
+        "flowbite": "^3.1.2",
         "laravel-vite-plugin": "^1.0",
+        "postcss": "^8.5.6",
+        "tailwindcss": "^4.1.14",
         "vite": "^5.0"
-    }
+    },
+    "name": "app-pegawai",
+    "version": "1.0.0",
+    "description": "<p align=\"center\"><a href=\"https://laravel.com\" target=\"_blank\"><img src=\"https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg\" width=\"400\" alt=\"Laravel Logo\"></a></p>",
+    "main": "vite.config.js",
+    "directories": {
+        "test": "tests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JaneshPutra/app-pegawai.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/JaneshPutra/app-pegawai/issues"
+    },
+    "homepage": "https://github.com/JaneshPutra/app-pegawai#readme"
 }

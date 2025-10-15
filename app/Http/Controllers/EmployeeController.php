@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class EmployeeController extends Controller
 {
@@ -17,7 +19,7 @@ class EmployeeController extends Controller
     }
 
 
-    /**
+    /** 
      * Show the form for creating a new resource.
      */
     public function create()
@@ -32,7 +34,7 @@ class EmployeeController extends Controller
     {
         $validated = $request->validate([
             'nama_lengkap' => 'required',
-            'email' => 'required|email|unique:employees',
+            'email' => 'required|email|unique:employees,email',
             'nomor_telepon' => 'required',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required',
@@ -41,7 +43,9 @@ class EmployeeController extends Controller
         ]);
 
         Employee::create($validated);
-        return redirect()->route('employees.index')->with('success', 'Pegawai berhasil ditambahkan.');
+
+        Alert::toast('Data Berhasil ditambahkan!!', 'success');
+        return redirect()->route('employees.index');
     }
 
     /**
@@ -68,11 +72,15 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $employee = Employee::findOrFail($id); // ← tambahkan ini
+        $employee = Employee::findOrFail($id); // pastikan $id adalah kolom yang dipakai di DB
 
         $validated = $request->validate([
             'nama_lengkap' => 'required',
-            'email' => 'required|email|unique:employees,email,' . $id,
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('employees', 'email')->ignore($id, 'id'), // ganti 'id' jika perlu
+            ],
             'nomor_telepon' => 'required',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required',
@@ -81,9 +89,10 @@ class EmployeeController extends Controller
         ]);
 
         $employee->update($validated);
-        return redirect()->route('employees.index')->with('success', 'Data pegawai diperbarui.');
-    }
 
+        Alert::toast('Data Berhasil Diperbarui!!', 'success');
+        return redirect()->route('employees.index');
+    }
     /**
      * Remove the specified resource from storage.
      */
@@ -92,7 +101,8 @@ class EmployeeController extends Controller
         $employee = Employee::findOrFail($id); // ← tambahkan ini
 
         $employee->delete();
-        return redirect()->route('employees.index')->with('success', 'Pegawai dihapus.');
+        Alert::toast('Data Berhasil dihapus!!', 'success');
+        return redirect()->route('employees.index');
     }
 
 }

@@ -11,11 +11,10 @@
                 </ul>
             </div>
         @endif
-        <form action="{{ route('employees.update', $employee->id) }}" method="POST">
+        <form action="{{ route('employees.update', $employee->id) }}" method="PUT">
             @csrf
             @method('PUT')
-            @include('employee.form', ['employee' => $employee])
-            <button type="submit" class="btn btn-primary">Update</button>
+            @include('employee.formedit', ['employee' => $employee])
         </form>
     </div>
-@endsection-
+@endsection
